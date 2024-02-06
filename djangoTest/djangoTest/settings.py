@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'teammate.apps.TeammateConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
