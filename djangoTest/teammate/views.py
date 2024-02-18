@@ -1,4 +1,3 @@
-
 from django.forms import model_to_dict
 from django.shortcuts import render
 from rest_framework import generics
@@ -74,9 +73,12 @@ class QuoteAPIView(APIView):
         url = 'https://favqs.com/api/'
         response = requests.get(url)
         if response.status_code == 200:
-            data = response.json()
-            quote_text = data['quote']['body']
-            translated_quote_text = self.translate_to_russian(quote_text)
-            return {'quote': translated_quote_text}
+            try:
+                data = response.json()
+                quote_text = data['quote']['body']
+                translated_quote_text = self.translate_to_russian(quote_text)
+                return {'quote': translated_quote_text}
+            except (KeyError, ValueError):
+                pass  # Handle incorrect format or missing keys
         return {'error': 'Failed to fetch quote'}
 
